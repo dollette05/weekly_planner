@@ -1,0 +1,430 @@
+:root{
+  --bg: #e6eaef;
+  --card: #f6f8fb;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: rgba(31,41,55,.12);
+  --accent: #e4574f;
+  --accent-2: #ff6a5f;
+  --item: #dde2ea;
+  --shadow: 0 18px 45px rgba(17,24,39,.18);
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  background: radial-gradient(1200px 800px at 20% 10%, #f2f5f9 0%, var(--bg) 45%, #dfe6ee 100%);
+  color: var(--text);
+}
+
+body::before,
+body::after{
+  content:"";
+  position: fixed;
+  inset: -200px;
+  z-index: -1;
+  filter: blur(60px);
+  opacity: .55;
+}
+
+body::before{
+  background: radial-gradient(circle at 30% 30%, rgba(228,87,79,.55), transparent 55%),
+              radial-gradient(circle at 70% 60%, rgba(99,102,241,.45), transparent 60%);
+}
+
+body::after{
+  background: radial-gradient(circle at 60% 20%, rgba(16,185,129,.35), transparent 55%),
+              radial-gradient(circle at 30% 80%, rgba(236,72,153,.30), transparent 60%);
+}
+
+.page{
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 28px 16px;
+}
+
+.card{
+  width: min(760px, 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--card) 100%);
+  border: 1px solid rgba(31,41,55,.08);
+  border-radius: 20px;
+  padding: 18px 18px 22px;
+  box-shadow: var(--shadow);
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  padding: 6px 4px 10px;
+}
+
+.hello{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 6px;
+  align-items:baseline;
+  font-size: 14px;
+}
+.hello-muted{ color: var(--muted); }
+.hello-name{ font-weight: 700; }
+.hello-greet{ color: var(--accent); font-weight: 700; }
+
+.clock{
+  font-size: 13px;
+  color: var(--muted);
+  display:flex;
+  gap: 8px;
+  align-items:center;
+}
+.clock-time{
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+.title{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  padding: 8px 0 10px;
+}
+.title h1{
+  margin:0;
+  font-size: 30px;
+  letter-spacing: .3px;
+}
+.title-icon{
+  width: 34px;
+  height: 34px;
+  display:grid;
+  place-items:center;
+  border-radius: 12px;
+  background: rgba(228,87,79,.12);
+}
+
+.addbar{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  padding: 8px 6px 14px;
+}
+
+.addbar-input{
+  flex: 1;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(31,41,55,.12);
+  background: rgba(255,255,255,.85);
+  outline: none;
+  font-size: 14px;
+}
+.addbar-input:focus{
+  border-color: rgba(228,87,79,.45);
+  box-shadow: 0 0 0 4px rgba(228,87,79,.12);
+}
+
+.addbar-btn{
+  height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent-2) 0%, var(--accent) 100%);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.addbar-btn:active{ transform: translateY(1px); }
+
+.list{
+  padding: 0 6px;
+}
+
+.date-row{
+  margin: 10px 0 6px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(228,87,79,.35);
+}
+.date-label{
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.todo{
+  background: linear-gradient(180deg, #eef2f7 0%, var(--item) 100%);
+  border: 1px solid rgba(31,41,55,.10);
+  border-radius: 14px;
+  padding: 10px 10px;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.todo-left, .todo-right{ margin:0; }
+
+.todo-check{
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 2px solid rgba(228,87,79,.55);
+  background: transparent;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+.todo-check .dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.todo-text{
+  flex: 1;
+  font-weight: 700;
+  color: rgba(31,41,55,.90);
+  font-size: 14px;
+}
+
+.todo-trash{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(31,41,55,.12);
+  background: rgba(255,255,255,.65);
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  color: rgba(31,41,55,.65);
+}
+.todo-trash:hover{ color: rgba(31,41,55,.9); }
+
+.todo.is-done{
+  opacity: .55;
+}
+.todo.is-done .todo-text{
+  text-decoration: line-through;
+}
+.todo.is-done .todo-check{
+  background: rgba(228,87,79,.15);
+}
+.todo.is-done .todo-check .dot{
+  background: var(--accent);
+}
+
+.empty{
+  padding: 14px;
+  border: 1px dashed rgba(31,41,55,.18);
+  border-radius: 14px;
+  color: var(--muted);
+  background: rgba(255,255,255,.55);
+}
+
+.toast{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  width: min(680px, calc(100% - 28px));
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 14px 35px rgba(17,24,39,.18);
+  font-size: 14px;
+}
+.toast.success{
+  background: #eaffea;
+  border: 1px solid #7bd67b;
+}
+.toast.error{
+  background: #ffecec;
+  border: 1px solid #ff8b8b;
+}
+.toast ul{ margin:0; padding-left: 18px; }
+
+.pager{
+  padding: 10px 6px 0;
+}
+
+.addbar-grid{
+  display:grid;
+  grid-template-columns: 160px 120px 1fr 1.4fr auto;
+  gap:10px;
+}
+
+.addbar-title{
+  min-width: 220px;
+}
+
+@media (max-width: 720px){
+  .addbar-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .addbar-title{
+    grid-column: 1 / -1;
+  }
+  .addbar-btn{
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+.todo-row{
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+}
+.todo-time{
+  font-weight:900;
+  color: rgba(31,41,55,.85);
+  min-width: 52px;
+}
+.todo-title{
+  font-weight:800;
+}
+
+.todo-meta{
+  margin-top:6px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.pill{
+  font-size:12px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid rgba(31,41,55,.12);
+  background: rgba(255,255,255,.55);
+  color: rgba(31,41,55,.75);
+}
+
+/* --- Layout add bar (stack) --- */
+.addbar-stack{
+  display:grid;
+  grid-template-columns: 170px 1fr;
+  gap:10px;
+  align-items:start;
+  padding: 8px 6px 14px;
+}
+
+.addbar-form-stack{
+  display:grid;
+  gap:10px;
+}
+
+.addbar-form-stack .row-top{
+  display:grid;
+  grid-template-columns: 150px 1fr;
+  gap:10px;
+  align-items:center;
+}
+
+.addbar-form-stack .row-bottom{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:10px;
+  align-items:center;
+}
+
+/* --- Make selects look nicer (not basic) --- */
+.addbar-select{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  cursor: pointer;
+  padding-right: 42px;
+
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(245,247,251,.92) 100%);
+  box-shadow: 0 6px 18px rgba(17,24,39,.06);
+  position: relative;
+}
+
+/* Arrow icon */
+.addbar-select{
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(245,247,251,.92) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M7 10l5 5 5-5' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 0, right 14px center;
+  background-size: auto, 18px 18px;
+}
+
+.addbar-input:hover{
+  border-color: rgba(31,41,55,.22);
+  box-shadow: 0 8px 22px rgba(17,24,39,.08);
+}
+
+.addbar-input:focus{
+  border-color: rgba(228,87,79,.55);
+  box-shadow: 0 0 0 4px rgba(228,87,79,.14), 0 10px 28px rgba(17,24,39,.10);
+}
+
+.addbar-input{
+  width: 100%;
+}
+
+/* ===== Responsive add form: jangan sampai input jadi kecil banget ===== */
+.addbar-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  padding: 8px 6px 14px;
+  width:100%;
+}
+
+/* biar semua input ngisi lebar itemnya */
+.addbar-row .addbar-input{
+  width:100%;
+}
+
+/* ukuran tiap field (bisa wrap turun baris) */
+.addbar-row #dayPicker{
+  flex: 1 1 170px;
+  min-width: 140px;
+}
+
+.addbar-row input[type="time"]{
+  flex: 0 1 140px;
+  min-width: 120px;
+}
+
+.addbar-row select[name="category_id"]{
+  flex: 1 1 220px;
+  min-width: 160px;
+}
+
+.addbar-row input[type="text"]{
+  flex: 2 1 260px;
+  min-width: 200px;
+}
+
+.addbar-row .addbar-btn{
+  flex: 0 0 92px;
+  width: 92px;
+}
+
+
+
+/* layar kecil: tombol jadi full width, title full width */
+@media (max-width: 520px){
+  .addbar-row input[type="text"]{
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .addbar-row .addbar-btn{
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}

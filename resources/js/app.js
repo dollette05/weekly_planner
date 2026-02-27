@@ -29,3 +29,31 @@ document.addEventListener("DOMContentLoaded", () => {
   tick();
   setInterval(tick, 1000);
 });
+
+async function getTasks(day = null) {
+    const url = day ? `/api/tasks?day=${day}` : '/api/tasks';
+    const res = await fetch(url);
+    return await res.json();
+}
+
+const allTasks = await getTasks();
+const mondayTasks = await getTasks('Monday');
+
+await fetch('/api/tasks/15', {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+        title: "Belajar API updated"
+    })
+});
+
+await fetch('/api/tasks/14', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+  body: JSON.stringify({ is_done: true })
+});
+
+await fetch('/api/tasks/14', { method: 'DELETE' });

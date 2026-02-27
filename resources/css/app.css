@@ -307,6 +307,7 @@ body::after{
   color: rgba(31,41,55,.75);
 }
 
+
 /* --- Layout add bar (stack) --- */
 .addbar-stack{
   display:grid;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Category;
+use Illuminate\Support\Str;
+
 
 class TaskController extends Controller
 {
@@ -16,6 +18,7 @@ class TaskController extends Controller
         $categories = Category::orderBy('name')->get();
 
         $tasks = Task::with('category')
+            ->where('user_id', auth()->id())
             ->where('day', $selectedDay)
             ->orderBy('time')
             ->get();
@@ -40,10 +43,12 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
+        $validated['user_id'] = auth()->id();
+        $validated['task_key'] = Str::uuid();
+
         Task::create($validated);
 
-        return redirect()->route('tasks.index', ['day' => $validated['day']])
-            ->with('success', 'Task berhasil ditambahkan!');
+        return redirect()->route('planner');
     }
 
     public function show(string $id)
@@ -79,7 +84,7 @@ class TaskController extends Controller
 
         $task->update($validated);
 
-        return redirect()->route('tasks.index', ['day' => $validated['day']])
+        return redirect()->route('planner', ['day' => $validated['day']])
             ->with('success', 'Task berhasil diupdate!');
     }
 
@@ -88,7 +93,7 @@ class TaskController extends Controller
         $day = $task->day;
         $task->delete();
 
-        return redirect()->route('tasks.index', ['day' => $task->day])
+        return redirect()->route('planner', ['day' => $task->day])
             ->with('success', 'Task berhasil dihapus!');
     }
 

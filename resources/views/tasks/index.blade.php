@@ -2,7 +2,6 @@
 
 @section('content')
 @php
-$name = auth()->user()->name ?? 'Teman';
 $selectedDay = request('day', 'Monday');
 @endphp
 
@@ -11,13 +10,20 @@ $selectedDay = request('day', 'Monday');
         <div class="topbar">
             <div class="hello">
                 <span class="hello-muted">Hello,</span>
-                <span class="hello-name">{{ $name }}</span>
+                <span class="hello-name">{{ auth()->user()->name }}</span>
                 <span id="greeting" class="hello-greet">Good Day!</span>
             </div>
 
-            <div class="clock">
-                <span class="clock-label">Time:</span>
-                <span id="clock" class="clock-time">--:--:--</span>
+            <div style="display:flex; align-items:center; gap:14px;">
+                <div class="clock">
+                    <span class="clock-label">Time:</span>
+                    <span id="clock" class="clock-time">--:--:--</span>
+                </div>
+
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
             </div>
         </div>
 
@@ -26,7 +32,6 @@ $selectedDay = request('day', 'Monday');
             <div class="title-icon" aria-hidden="true">🗓️</div>
         </div>
 
-        {{-- Form tambah task: sejajar 1 baris --}}
         <form class="addbar addbar-row" method="POST" action="{{ route('tasks.store') }}">
             @csrf
 
@@ -69,7 +74,6 @@ $selectedDay = request('day', 'Monday');
         <div class="list">
             @forelse($tasks as $task)
             <div class="todo {{ $task->is_done ? 'is-done' : '' }}">
-                {{-- Toggle done --}}
                 <form method="POST" action="{{ route('tasks.update', $task->id) }}" class="todo-left">
                     @csrf
                     @method('PATCH')
@@ -90,9 +94,6 @@ $selectedDay = request('day', 'Monday');
                     </div>
                 </div>
 
-                
-
-                {{-- Delete --}}
                 <form method="POST" action="{{ route('tasks.destroy', $task->id) }}" class="todo-right">
                     @csrf
                     @method('DELETE')
@@ -112,4 +113,23 @@ $selectedDay = request('day', 'Monday');
         </div>
     </div>
 </div>
+
+<style>
+    .logout-btn {
+        border: none;
+        background: #f5655b;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .logout-btn:hover {
+        opacity: 0.92;
+        transform: translateY(-1px);
+    }
+</style>
 @endsection
